@@ -2,6 +2,43 @@
 # ==========================================
 import string
 import random
+import argparse
+
+def main():
+
+    args = parse_args()
+
+    seed = input("Enter the random seed: ")
+    input_message = "Enter the message for "
+    if args.decrypt:
+        input_message += "decryption: "
+    else:
+        input_message += "encryption: "
+    message = input(input_message)
+
+    if args.decrypt:
+        print(f"The decrypted message is:\n{decrypt(message, seed)}")
+    else:
+        print(f"The encrypted message is:\n{encrypt(message, seed)}")
+
+
+def parse_args():
+    """Parse arguments from the command line.
+    
+    Returns a Namespace object.
+    """
+
+    parser = argparse.ArgumentParser(
+        description="Tool for encrypting & decrypting secret messages." 
+    )
+
+    parser.add_argument(
+        "--decrypt",
+        action='store_true',
+        help="run in decrypt mode",
+    )
+
+    return parser.parse_args()
 
 def create_character_dict(seed, encrypt):
 
@@ -40,7 +77,7 @@ def encrypt(message, seed):
     return ''.join(jumbled_message)
 
 
-def decrypt(message,seed):
+def decrypt(message, seed):
 
     # Create the character dictionary for decryption.
     character_dict = create_character_dict(seed, encrypt=False)   
@@ -50,3 +87,6 @@ def decrypt(message,seed):
 
     # Convert the list of characters into a string.
     return ''.join(plaintext_message)
+
+if __name__ == "__main__":
+    main()

@@ -16,3 +16,9 @@ Get help with the `--help` flag:
 ```
 python encrypt.py --help
 ```
+
+## Tests
+Run the tests with the command:
+```
+python -m pytest
+```
